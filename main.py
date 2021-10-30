@@ -35,7 +35,8 @@ def withoutTime(args):
             print('You typed ' + pressed_char + '. ' + 'Wrong!')
             number_of_types += 1
 
-
+    print('you were right about ' + str(number_of_hits) + ' questions  ')
+    print('You were wrong about ' + str(number_of_types- number_of_hits) + ' questions')
 
 if __name__ == '__main__':
     main()
