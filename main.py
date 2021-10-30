@@ -137,12 +137,12 @@ def withTime(args):
             time_w += duration
 
         if time() >= test_start + args['maximum_value']:
-            test = time() - test_duration
-            print(test)
+            #test = time() - test_duration
+            #print(test)
             break
         inputs.append(Input(random_char, pressed_char, duration))
 
-
+    test_duration = time() - test_duration
     print('Current test duration {} exceeds maximum of {} segundos'.format(test_duration, args['maximum_value']))
 
 
@@ -162,7 +162,7 @@ def withTime(args):
     test_end = ctime()
     test_start = ctime(test_start)
 
-    test_duration = time() - test_duration
+
 
     print('\n {} Your test has ended, here are the results: {} '.format(Fore.CYAN,Style.RESET_ALL))
 
