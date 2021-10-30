@@ -5,6 +5,7 @@ import random
 import string
 from time import time, ctime
 from collections import namedtuple
+from colorama import Fore, Back, Style
 
 def main():
 
@@ -46,7 +47,7 @@ def withoutTime(args):
         pressed_char = readchar.readkey()
         duration = time() - duration
         if random_char == pressed_char:
-            print('You typed ' + pressed_char + '. ' + 'Correct!')
+            print('\nYou typed ' + Fore.GREEN + pressed_char + Style.RESET_ALL + '. ' + 'Correct!')
             number_of_hits += 1
             number_of_types += 1
             time_c += duration
@@ -55,7 +56,7 @@ def withoutTime(args):
             test_duration = time() - test_duration
             break
         else:
-            print('You typed ' + pressed_char + '. ' + 'Wrong!')
+            print('\nYou typed ' + Fore.RED + pressed_char + Style.RESET_ALL + '. ' + 'Wrong!')
             number_of_misses += 1
             number_of_types += 1
             time_w += duration
@@ -79,7 +80,7 @@ def withoutTime(args):
 
     test_duration = time() - test_duration
 
-    print('Your test has ended, here are the results: ')
+    print('\nYour test has ended, here are the results: ')
 
     my_dict = {'accuracy in %': accuracy,
                 'inputs': inputs,
