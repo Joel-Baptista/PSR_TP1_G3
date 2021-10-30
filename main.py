@@ -4,6 +4,7 @@ import readchar
 import random
 import string
 from time import time, ctime
+from collections import namedtuple
 
 def main():
 
@@ -28,6 +29,8 @@ def start():
     readchar.readkey()
 
 def withoutTime(args):
+    Input = namedtuple('Input', ['requested', 'received', 'duration'])
+    inputs = []
     start()
     test_duration = time()
     test_start = ctime()
@@ -57,8 +60,10 @@ def withoutTime(args):
             number_of_types += 1
             time_w += duration
 
+        inputs.append(Input(random_char, pressed_char, duration))
 
-    accuracy = (number_of_hits / number_of_types) * 100
+    accuracy = (float(number_of_hits) / float(number_of_types)) * 100
+
     type_average_duration = duration / number_of_types
 
     if number_of_hits == 0:
@@ -69,8 +74,25 @@ def withoutTime(args):
         type_miss_average_duration = None
     else:
         type_miss_average_duration = time_w / number_of_misses
+
     test_end = ctime()
+
     test_duration = time() - test_duration
+
+    print('Your test has ended, here are the results: ')
+
+    my_dict = {'accuracy in %': accuracy,
+                'inputs': inputs,
+                'number of hits': number_of_hits,
+                'number_of_types': number_of_types,
+                'test duration': test_duration,
+                'test_end': test_end,
+                'test_start': test_start,
+                'type_average_duration': type_average_duration,
+                'type_hit_average_duration': type_hit_average_duration,
+                'type_miss_average_duration': type_miss_average_duration}
+
+    print(my_dict)
 
 if __name__ == '__main__':
     main()
