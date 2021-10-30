@@ -11,8 +11,16 @@ def main():
 
     if args['use_time_mode'] is False:
         print('Type all ' + str(args['maximum_value']) + ' characters to finish the test.')
+        withoutTime(args)
+
     else:
         print('You have ' + str(args['maximum_value']) + ' seconds to finish the test.')
+        withTime(args)
+
+def withoutTime(args):
+
+def withTime(args):
+
 
 if __name__ == '__main__':
     main()
