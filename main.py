@@ -31,8 +31,11 @@ def withoutTime(args):
     start()
     test_duration = time()
     test_start = ctime()
+    time_c = 0
+    time_w = 0
     number_of_hits = 0
     number_of_types = 0
+    number_of_misses = 0
     for i in range(args['maximum_value']):
         random_char = random.choice(string.ascii_letters)
         print('Type ' + str(random_char))
@@ -43,14 +46,29 @@ def withoutTime(args):
             print('You typed ' + pressed_char + '. ' + 'Correct!')
             number_of_hits += 1
             number_of_types += 1
+            time_c += duration
         elif pressed_char == ' ':
             print('Thanks for playing!')
             test_duration = time() - test_duration
             break
         else:
             print('You typed ' + pressed_char + '. ' + 'Wrong!')
+            number_of_misses += 1
             number_of_types += 1
+            time_w += duration
 
+
+    accuracy = (number_of_hits / number_of_types) * 100
+    type_average_duration = duration / number_of_types
+
+    if number_of_hits == 0:
+        type_hit_average_duration = None
+    else:
+        type_hit_average_duration = time_c / number_of_hits
+    if number_of_misses == 0:
+        type_miss_average_duration = None
+    else:
+        type_miss_average_duration = time_w / number_of_misses
     test_end = ctime()
     test_duration = time() - test_duration
 
