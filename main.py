@@ -10,8 +10,8 @@ from colorama import Fore, Back, Style
 def main():
 
     parser = argparse.ArgumentParser(description='Escolha do modo de jogo.')
-    parser.add_argument('-utm', '--use_time_mode', action='store_true', help='')
-    parser.add_argument('-mv', '--maximum_value', type=int, required=True, help='')
+    parser.add_argument('-utm', '--use_time_mode', action='store_true', help='Max number of secs for time mode or maximum number of inputs for number of inputs mode')
+    parser.add_argument('-mv', '--maximum_value', type=int, required=True, help='Max number of seconds for time mode or maximum number of inputs for number of inputs mode.')
     args = vars(parser.parse_args())
 
     #print(args)
