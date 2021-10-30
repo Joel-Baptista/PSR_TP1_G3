@@ -3,7 +3,7 @@ import argparse
 import readchar
 import random
 import string
-
+from time import time, ctime
 
 def main():
 
@@ -29,22 +29,30 @@ def start():
 
 def withoutTime(args):
     start()
+    test_duration = time()
+    test_start = ctime()
     number_of_hits = 0
     number_of_types = 0
     for i in range(args['maximum_value']):
         random_char = random.choice(string.ascii_letters)
         print('Type ' + str(random_char))
+        duration = time()
         pressed_char = readchar.readkey()
+        duration = time() - duration
         if random_char == pressed_char:
             print('You typed ' + pressed_char + '. ' + 'Correct!')
             number_of_hits += 1
             number_of_types += 1
         elif pressed_char == ' ':
             print('Thanks for playing!')
+            test_duration = time() - test_duration
             break
         else:
             print('You typed ' + pressed_char + '. ' + 'Wrong!')
             number_of_types += 1
+
+    test_end = ctime()
+    test_duration = time() - test_duration
 
 if __name__ == '__main__':
     main()
