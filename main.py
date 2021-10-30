@@ -4,7 +4,9 @@ import readchar
 import random
 import string
 
+
 def main():
+
     parser = argparse.ArgumentParser(description='Escolha do modo de jogo.')
     parser.add_argument('-utm', '--use_time_mode', action='store_true', help='')
     parser.add_argument('-mv', '--maximum_value', type=int, required=True, help='')
@@ -20,7 +22,13 @@ def main():
         print('You have ' + str(args['maximum_value']) + ' seconds to finish the test.')
         withTime(args)
 
+
+def start():
+    print('Press a key to start the test')
+    readchar.readkey()
+
 def withoutTime(args):
+    start()
     number_of_hits = 0
     number_of_types = 0
     for i in range(args['maximum_value']):
@@ -31,9 +39,13 @@ def withoutTime(args):
             print('You typed ' + pressed_char + '. ' + 'Correct!')
             number_of_hits += 1
             number_of_types += 1
+        elif pressed_char == ' ':
+            print('Thanks for playing!')
+            break
         else:
             print('You typed ' + pressed_char + '. ' + 'Wrong!')
             number_of_types += 1
+
 
 
 
