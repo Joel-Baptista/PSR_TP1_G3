@@ -16,15 +16,15 @@ def main():
     parser.add_argument('-mv', '--maximum_value', type=int, required=True, help='Max number of seconds for time mode or maximum number of inputs for number of inputs mode.')
     args = vars(parser.parse_args())
 
-    #print(args)
-
     if args['use_time_mode'] is False:
         print('Type all ' + str(args['maximum_value']) + ' characters to finish the test.')
-        withoutTime(args)
+        my_dict = withoutTime(args)
 
     else:
         print('You have ' + str(args['maximum_value']) + ' seconds to finish the test.')
-        withTime(args)
+        my_dict = withTime(args)
+
+    pprint(my_dict)
 
 
 def start():
@@ -32,11 +32,15 @@ def start():
     readchar.readkey()
 
 
+def leave():
+    print('The player quit the game. Statistics will not be shown!')
+    exit()
+
+
 def withoutTime(args):
     Input = namedtuple('Input', ['requested', 'received', 'duration'])
     inputs = []
     start()
-    test_duration = time()
     test_start = ctime()
     time_c = 0
     time_w = 0
@@ -55,9 +59,7 @@ def withoutTime(args):
             number_of_types += 1
             time_c += duration
         elif pressed_char == ' ':
-            print('Thanks for playing!')
-            test_duration = time() - test_duration
-            break
+            leave()
         else:
             print('\nYou typed ' + Fore.RED + pressed_char + Style.RESET_ALL + '. ' + 'Wrong!')
             number_of_misses += 1
@@ -68,7 +70,9 @@ def withoutTime(args):
 
     accuracy = (float(number_of_hits) / float(number_of_types)) * 100
 
-    type_average_duration = duration / number_of_types
+    test_duration = time_c + time_w
+
+    type_average_duration = test_duration / number_of_types
 
     if number_of_hits == 0:
         type_hit_average_duration = None
@@ -80,8 +84,6 @@ def withoutTime(args):
         type_miss_average_duration = time_w / number_of_misses
 
     test_end = ctime()
-
-    test_duration = time() - test_duration
 
     print('\n {} Your test has ended, here are the results: {}'.format(Fore.CYAN, Style.RESET_ALL))
 
@@ -96,17 +98,13 @@ def withoutTime(args):
                 'type_hit_average_duration': type_hit_average_duration,
                 'type_miss_average_duration': type_miss_average_duration}
 
-    pprint(my_dict)
-
-
-
+    return my_dict
 
 
 def withTime(args):
     Input = namedtuple('Input', ['requested', 'received', 'duration'])
     inputs = []
     start()
-    test_duration = time()
     test_start = time()
     time_c = 0
     time_w = 0
@@ -114,9 +112,8 @@ def withTime(args):
     number_of_types = 0
     number_of_misses = 0
 
-
     while True:
-        random_char = random.choice(string.ascii_letters)
+        random_char = chr(random.randint(97, 122))
         print(Fore.CYAN + '\nType ' + str(random_char) + Style.RESET_ALL)
         duration = time()
         pressed_char = readchar.readkey()
@@ -127,9 +124,7 @@ def withTime(args):
             number_of_types += 1
             time_c += duration
         elif pressed_char == ' ':
-            print('Thanks for playing!')
-
-            break
+            leave()
         else:
             print('\nYou typed ' + Fore.RED + pressed_char + Style.RESET_ALL + '. ' + 'Wrong!')
             number_of_misses += 1
@@ -137,17 +132,15 @@ def withTime(args):
             time_w += duration
 
         if time() >= test_start + args['maximum_value']:
-            #test = time() - test_duration
-            #print(test)
             break
         inputs.append(Input(random_char, pressed_char, duration))
 
-    test_duration = time() - test_duration
+    test_duration = time_w + time_c
     print('\nCurrent test duration {} exceeds maximum of {} seconds'.format(test_duration, args['maximum_value']))
 
     accuracy = (float(number_of_hits) / float(number_of_types)) * 100
 
-    type_average_duration = duration / number_of_types
+    type_average_duration = test_duration / number_of_types
 
     if number_of_hits == 0:
         type_hit_average_duration = None
@@ -161,9 +154,7 @@ def withTime(args):
     test_end = ctime()
     test_start = ctime(test_start)
 
-
-
-    print('\n {} Your test has ended, here are the results: {} '.format(Fore.CYAN,Style.RESET_ALL))
+    print('\n {} Your test has ended, here are the results: {} '.format(Fore.CYAN, Style.RESET_ALL))
 
     my_dict = {'accuracy in %': accuracy,
                'inputs': inputs,
@@ -176,7 +167,8 @@ def withTime(args):
                'type_hit_average_duration': type_hit_average_duration,
                'type_miss_average_duration': type_miss_average_duration}
 
-    print(my_dict)
+    return my_dict
+
 
 if __name__ == '__main__':
     main()
