@@ -6,6 +6,8 @@ import string
 from time import time, ctime, sleep
 from collections import namedtuple
 from colorama import Fore, Back, Style
+from pprint import pprint
+
 
 def main():
 
@@ -29,6 +31,7 @@ def start():
     print('Press a key to start the test')
     readchar.readkey()
 
+
 def withoutTime(args):
     Input = namedtuple('Input', ['requested', 'received', 'duration'])
     inputs = []
@@ -41,7 +44,7 @@ def withoutTime(args):
     number_of_types = 0
     number_of_misses = 0
     for i in range(args['maximum_value']):
-        random_char = random.choice(string.ascii_letters)
+        random_char = chr(random.randint(97, 122))
         print(Fore.CYAN + '\nType ' + str(random_char) + Style.RESET_ALL)
         duration = time()
         pressed_char = readchar.readkey()
@@ -62,9 +65,6 @@ def withoutTime(args):
             time_w += duration
 
         inputs.append(Input(random_char, pressed_char, duration))
-
-
-
 
     accuracy = (float(number_of_hits) / float(number_of_types)) * 100
 
@@ -96,7 +96,7 @@ def withoutTime(args):
                 'type_hit_average_duration': type_hit_average_duration,
                 'type_miss_average_duration': type_miss_average_duration}
 
-    print(my_dict)
+    pprint(my_dict)
 
 
 
