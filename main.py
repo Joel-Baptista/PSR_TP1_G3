@@ -9,7 +9,7 @@ from colorama import Fore, Back, Style
 
 def main():
 
-    parser = argparse.ArgumentParser(description='Escolha do modo de jogo.')
+    parser = argparse.ArgumentParser(description='Choose game mode.')
     parser.add_argument('-utm', '--use_time_mode', action='store_true', help='Max number of secs for time mode or maximum number of inputs for number of inputs mode')
     parser.add_argument('-mv', '--maximum_value', type=int, required=True, help='Max number of seconds for time mode or maximum number of inputs for number of inputs mode.')
     args = vars(parser.parse_args())
@@ -42,7 +42,7 @@ def withoutTime(args):
     number_of_misses = 0
     for i in range(args['maximum_value']):
         random_char = random.choice(string.ascii_letters)
-        print('\nType ' + str(random_char))
+        print(Fore.CYAN + '\nType ' + str(random_char) + Style.RESET_ALL)
         duration = time()
         pressed_char = readchar.readkey()
         duration = time() - duration
@@ -117,7 +117,7 @@ def withTime(args):
 
     while True:
         random_char = random.choice(string.ascii_letters)
-        print('\nType ' + str(random_char))
+        print(Fore.CYAN + '\nType ' + str(random_char) + Style.RESET_ALL)
         duration = time()
         pressed_char = readchar.readkey()
         duration = time() - duration
@@ -143,8 +143,7 @@ def withTime(args):
         inputs.append(Input(random_char, pressed_char, duration))
 
     test_duration = time() - test_duration
-    print('Current test duration {} exceeds maximum of {} segundos'.format(test_duration, args['maximum_value']))
-
+    print('\nCurrent test duration {} exceeds maximum of {} seconds'.format(test_duration, args['maximum_value']))
 
     accuracy = (float(number_of_hits) / float(number_of_types)) * 100
 
