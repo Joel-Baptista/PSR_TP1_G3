@@ -14,9 +14,9 @@ def main():
 
     parser = argparse.ArgumentParser(description='Choose game mode.')
     parser.add_argument('-utm', '--use_time_mode', action='store_true', help='Max number of secs for time mode or maximum number of inputs for number of inputs mode')
-    #O utlizador deverá inserir '-m' caso queira o modo de jogo com cronometro. Se não for chamado, o valor deste argumento será False.
+    #O utlizador deverá inserir '-utm' caso queira o modo de jogo com cronometro. Se não for chamado, o valor deste argumento será False.
     parser.add_argument('-mv', '--maximum_value', type=int, required=True, help='Max number of seconds for time mode or maximum number of inputs for number of inputs mode.')
-    #O utlizador deverá inserir '-m' de modo a inserir um argumento que especifique o numero máximo, sendo este de presença obrigatória.
+    #O utlizador deverá inserir '-mv' de modo a inserir um argumento que especifique o numero máximo, sendo este de presença obrigatória.
     args = vars(parser.parse_args())
 
     if args['use_time_mode'] is False:
