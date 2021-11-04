@@ -144,6 +144,9 @@ def withTime(args):
         duration = time()
         pressed_char = readchar.readkey()
         duration = time() - duration
+        if time() >= test_start + args['maximum_value']:
+            time_w += duration
+            break
         if random_char == pressed_char:
             print('\nYou typed ' + Fore.GREEN + pressed_char + Style.RESET_ALL + '. ' + 'Correct!')
             number_of_hits += 1
@@ -157,8 +160,6 @@ def withTime(args):
             number_of_types += 1
             time_w += duration
 
-        if time() >= test_start + args['maximum_value']:
-            break
         inputs.append(Input(random_char, pressed_char, duration))
 
     test_duration = time_w + time_c
